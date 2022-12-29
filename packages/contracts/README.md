@@ -1,5 +1,13 @@
-## @my-app/contracts
+# Sample Hardhat Project
 
-A minimalist, opinionated structure for managing smart contract ABIs and addresses.
+This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
 
-[Read more about Application Binary Interfaces (ABIs) here](https://ethereum.stackexchange.com/questions/234/what-is-an-abi-and-why-is-it-needed-to-interact-with-contracts).
+Try running some of the following tasks:
+
+```shell
+npx hardhat help
+npx hardhat test
+REPORT_GAS=true npx hardhat test
+npx hardhat node
+npx hardhat run scripts/deploy.js
+```

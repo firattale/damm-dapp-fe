@@ -1,27 +1,27 @@
 import { Contract } from "@ethersproject/contracts";
-import { shortenAddress, useCall, useEthers, useLookupAddress } from "@usedapp/core";
+import { shortenAddress, useCall, useEthers } from "@usedapp/core";
 import React, { useEffect, useState } from "react";
 
 import { Body, Button, Container, Header, Image, Link } from "./components";
 import logo from "./ethereumLogo.png";
 
 import { addresses, abis } from "@my-app/contracts";
-
 function WalletButton() {
 	const [rendered, setRendered] = useState("");
 
-	const { ens } = useLookupAddress();
+	// const { ens } = useLookupAddress();
 	const { account, activateBrowserWallet, deactivate, error } = useEthers();
 
 	useEffect(() => {
-		if (ens) {
-			setRendered(ens);
-		} else if (account) {
+		// if (ens) {
+		// 	setRendered(ens);
+		// } else
+		if (account) {
 			setRendered(shortenAddress(account));
 		} else {
 			setRendered("");
 		}
-	}, [account, ens, setRendered]);
+	}, [account, setRendered]);
 
 	useEffect(() => {
 		if (error) {
@@ -49,11 +49,12 @@ function App() {
 	// Read more about useDapp on https://usedapp.io/
 	const { error: contractCallError, value: tokenBalance } =
 		useCall({
-			contract: new Contract(addresses.ceaErc20, abis.erc20),
-			method: "balanceOf",
-			args: ["0x3f8CB69d9c0ED01923F11c829BaE4D9a4CB6c82C"],
+			contract: new Contract(addresses.nftContract, abis.erc721),
+			method: "name",
+			args: [],
 		}) ?? {};
-
+	console.log("tokenBalance :>> ", tokenBalance);
+	console.log("contractCallError :>> ", contractCallError);
 	return (
 		<Container>
 			<Header>
