@@ -1,12 +1,11 @@
 import { Contract } from "@ethersproject/contracts";
 import { shortenAddress, useEthers, useLookupAddress } from "@usedapp/core";
 import React, { useEffect, useState } from "react";
-import { useTokenIds } from "./hooks/getTokenIds";
-import { Body, Button, Container, Header, Image, ImageContainer } from "./components";
-import metadatas from "@my-app/contracts/src/metadata.json";
+import { useTokenIds, showNFTs } from "./hooks";
+import { Body, Button, Container, Header, FlexBox } from "./components";
 
 import { addresses, abis } from "@my-app/contracts";
-function WalletButton() {
+const WalletButton = () => {
 	const [rendered, setRendered] = useState("");
 
 	const { ens } = useLookupAddress();
@@ -42,9 +41,9 @@ function WalletButton() {
 			{rendered !== "" && rendered}
 		</Button>
 	);
-}
+};
 
-function App() {
+const App = () => {
 	const nftContract = React.useMemo(() => new Contract(addresses.nftContract, abis.erc721), []);
 	const { account } = useEthers();
 	const filter = {
@@ -61,29 +60,10 @@ function App() {
 			</Header>
 			<Body>
 				<h1>Your NFT Collection</h1>
-				{account && (
-					<div style={{ display: "flex" }}>
-						{userTokens ? (
-							metadatas
-								.filter((metadata) => {
-									return userTokens.includes(metadata.id);
-								})
-								.map((metadata, index) => {
-									return (
-										<ImageContainer key={index}>
-											<Image src={metadata.ipfs_image} />
-											<p>{metadata.name}</p>
-										</ImageContainer>
-									);
-								})
-						) : (
-							<>Loading...</>
-						)}
-					</div>
-				)}
+				{account && <FlexBox>{showNFTs(userTokens)}</FlexBox>}
 			</Body>
 		</Container>
 	);
-}
+};
 
 export default App;
