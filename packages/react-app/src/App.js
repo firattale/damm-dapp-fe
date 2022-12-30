@@ -61,24 +61,26 @@ function App() {
 			</Header>
 			<Body>
 				<h1>Your NFT Collection</h1>
-				<div style={{ display: "flex" }}>
-					{userTokens && userTokens.length > 0 ? (
-						metadatas
-							.filter((metadata) => {
-								return userTokens.includes(metadata.id);
-							})
-							.map((metadata, index) => {
-								return (
-									<ImageContainer key={index}>
-										<Image src={metadata.google_image} />
-										<p>{metadata.name}</p>
-									</ImageContainer>
-								);
-							})
-					) : (
-						<>Loading...</>
-					)}
-				</div>
+				{account && (
+					<div style={{ display: "flex" }}>
+						{userTokens ? (
+							metadatas
+								.filter((metadata) => {
+									return userTokens.includes(metadata.id);
+								})
+								.map((metadata, index) => {
+									return (
+										<ImageContainer key={index}>
+											<Image src={metadata.ipfs_image} />
+											<p>{metadata.name}</p>
+										</ImageContainer>
+									);
+								})
+						) : (
+							<>Loading...</>
+						)}
+					</div>
+				)}
 			</Body>
 		</Container>
 	);
