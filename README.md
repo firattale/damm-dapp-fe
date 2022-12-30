@@ -50,10 +50,10 @@ Owing to this dependency on Yarn Workspaces, Create Eth App can't be used with n
 
 ## Available Scripts
 
-1 - `cd packages/contracts` - get into the contracts folder
-2 - `npx hardhat node` - run a hardhat node
-3 - `npx hardhat run --network localhost scripts/deploy.js` - deploy the contact to hardhat network
-4 - copy the contract address from terminal and paste it to /contracts/src/addresses.js
-5 - you need to get the first account private key from Hardhat Node and add it to your Metamask with Localhost Net .
-6 - `react-app:start` to start FE project in the main folder.
-7 - Once you connect your wallet you will see the NFT's on the screen.
+- `cd packages/contracts` - get into the contracts folder
+- `npx hardhat node` - run a hardhat node
+- `npx hardhat run --network localhost scripts/deploy.js` - deploy the contact to hardhat network
+- copy the contract address from terminal and paste it to /contracts/src/addresses.js
+- you need to get the first account private key from Hardhat Node and add it to your Metamask with Localhost Net .
+- `react-app:start` to start FE project in the main folder.
+- Once you connect your wallet you will see the NFT's on the screen.
