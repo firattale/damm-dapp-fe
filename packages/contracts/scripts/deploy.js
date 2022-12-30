@@ -8,11 +8,16 @@ const hre = require("hardhat");
 
 async function main() {
 	const NFTContract = await hre.ethers.getContractFactory("NFTContract");
-	const nftContract = await NFTContract.deploy();
-
+	const nftContract = await NFTContract.deploy("https://api.coolcatsnft.com/cat/");
+	const [owner] = await ethers.getSigners();
 	await nftContract.deployed();
-
-	console.log(`The contract deployed to ${nftContract.address}`);
+	await nftContract.mint(owner.address);
+	await nftContract.mint(owner.address);
+	await nftContract.mint(owner.address);
+	await nftContract.mint(owner.address);
+	const balance = await nftContract.balanceOf(owner.address);
+	console.log(`===== The contract deployed to ${nftContract.address}`);
+	console.log(`==== The ${owner.address} has ${balance} NFTs`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
