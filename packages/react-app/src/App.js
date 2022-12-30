@@ -2,7 +2,7 @@ import { Contract } from "@ethersproject/contracts";
 import { shortenAddress, useEthers, useLookupAddress } from "@usedapp/core";
 import React, { useEffect, useState } from "react";
 import { useTokenIds } from "./hooks/getTokenIds";
-import { Body, Button, Container, Header, Image } from "./components";
+import { Body, Button, Container, Header, Image, ImageContainer } from "./components";
 import metadatas from "@my-app/contracts/src/metadata.json";
 
 import { addresses, abis } from "@my-app/contracts";
@@ -60,14 +60,25 @@ function App() {
 				<WalletButton />
 			</Header>
 			<Body>
-				{userTokens &&
-					metadatas
-						.filter((metadata) => {
-							return userTokens.includes(metadata.id);
-						})
-						.map((metadata, index) => {
-							return <Image key={index} src={metadata.google_image} />;
-						})}
+				<h1>Your NFT Collection</h1>
+				<div style={{ display: "flex" }}>
+					{userTokens && userTokens.length > 0 ? (
+						metadatas
+							.filter((metadata) => {
+								return userTokens.includes(metadata.id);
+							})
+							.map((metadata, index) => {
+								return (
+									<ImageContainer key={index}>
+										<Image src={metadata.google_image} />
+										<p>{metadata.name}</p>
+									</ImageContainer>
+								);
+							})
+					) : (
+						<>Loading...</>
+					)}
+				</div>
 			</Body>
 		</Container>
 	);
