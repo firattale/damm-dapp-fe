@@ -8,11 +8,10 @@ export const useTokenIds = (filter) => {
 		toBlock: "latest",
 	});
 	if (logs?.value) {
-		return logs.value.map((value) => {
-			return +value.data[2];
-		});
+		//convert from BN to number
+		return logs.value.map((value) => +value.data[2]);
 	}
-	return null;
+	return [];
 };
 
 export const showNFTs = (userTokens) => {

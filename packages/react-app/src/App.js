@@ -52,7 +52,6 @@ const App = () => {
 		args: [null, account],
 	};
 	const userTokens = useTokenIds(filter);
-
 	return (
 		<Container>
 			<Header>
@@ -60,7 +59,15 @@ const App = () => {
 			</Header>
 			<Body>
 				<h1>Your NFT Collection</h1>
-				{account && <FlexBox>{showNFTs(userTokens)}</FlexBox>}
+				{account ? (
+					userTokens.length > 0 ? (
+						<FlexBox>{showNFTs(userTokens)}</FlexBox>
+					) : (
+						<>No NFTs found</>
+					)
+				) : (
+					<>Please connect wallet to see your NFTs</>
+				)}
 			</Body>
 		</Container>
 	);
