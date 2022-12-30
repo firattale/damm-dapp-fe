@@ -14,7 +14,6 @@ async function main() {
 	await nftContract.mint(owner.address);
 	await nftContract.mint(owner.address);
 	await nftContract.mint(owner.address);
-	await nftContract.mint(owner.address);
 	const balance = await nftContract.balanceOf(owner.address);
 	console.log(`===== The contract deployed to ${nftContract.address}`);
 	console.log(`==== The ${owner.address} has ${balance} NFTs`);

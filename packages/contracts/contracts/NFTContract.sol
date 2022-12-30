@@ -24,4 +24,8 @@ contract NFTContract is ERC721Enumerable {
     function _baseURI() internal view override returns (string memory) {
         return baseURI;
     }
+
+    function getBaseURI() public view returns (string memory) {
+        return _baseURI();
+    }
 }

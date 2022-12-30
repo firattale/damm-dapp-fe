@@ -1,8 +1,9 @@
 import { Contract } from "@ethersproject/contracts";
-import { shortenAddress, useCall, useEthers, useLookupAddress } from "@usedapp/core";
+import { shortenAddress, useEthers, useLookupAddress } from "@usedapp/core";
 import React, { useEffect, useState } from "react";
 import { useTokenIds } from "./hooks/getTokenIds";
-import { Body, Button, Container, Header } from "./components";
+import { Body, Button, Container, Header, Image } from "./components";
+import metadatas from "@my-app/contracts/src/metadata.json";
 
 import { addresses, abis } from "@my-app/contracts";
 function WalletButton() {
@@ -44,7 +45,6 @@ function WalletButton() {
 }
 
 function App() {
-	// Read more about useDapp on https://usedapp.io/
 	const nftContract = React.useMemo(() => new Contract(addresses.nftContract, abis.erc721), []);
 	const { account } = useEthers();
 	const filter = {
@@ -53,24 +53,22 @@ function App() {
 		args: [null, account],
 	};
 	const userTokens = useTokenIds(filter);
-	const { error: contractCallError, value } =
-		useCall({
-			contract: nftContract,
-			method: "tokenURI",
-			args: ["0"],
-		}) ?? {};
-
-	useEffect(() => {
-		console.log("userTokens", userTokens);
-		console.log("value :>> ", value);
-	}, [userTokens, value]);
 
 	return (
 		<Container>
 			<Header>
 				<WalletButton />
 			</Header>
-			<Body></Body>
+			<Body>
+				{userTokens &&
+					metadatas
+						.filter((metadata) => {
+							return userTokens.includes(metadata.id);
+						})
+						.map((metadata, index) => {
+							return <Image key={index} src={metadata.google_image} />;
+						})}
+			</Body>
 		</Container>
 	);
 }
